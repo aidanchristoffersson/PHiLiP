@@ -24,12 +24,3 @@ src/.vscode/settings.json
 src/dummy/*
 tests/integration_tests_control_files/decaying_homogeneous_isotropic_turbulence/setup_files/1proc/*.dat
 tests/integration_tests_control_files/decaying_homogeneous_isotropic_turbulence/setup_files/4proc/*.dat
-tests/meshes/naca0012_hopw_ref0.msh
-tests/meshes/naca0012_hopw_ref1.msh
-tests/meshes/naca0012_hopw_ref2.msh
-tests/meshes/naca0012_hopw_ref3.msh
-tests/meshes/naca0012_hopw_ref4.msh
-tests/meshes/naca0012_hopw_ref5.msh
-tests/unit_tests/grid/gmsh_reader/2D_square.msh
-tests/unit_tests/grid/gmsh_reader/3D_square.msh
-tests/unit_tests/grid/gmsh_reader/airfoil.msh
