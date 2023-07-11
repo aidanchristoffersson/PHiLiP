@@ -15,6 +15,7 @@
 #include "mhd.h"
 #include "navier_stokes.h"
 #include "physics_model.h"
+#include "euler_potential_flow.h"
 
 namespace PHiLiP {
 namespace Physics {
@@ -143,6 +144,18 @@ PhysicsFactory<dim,nstate,real>
             return create_Physics_Model(parameters_input,
                                         manufactured_solution_function,
                                         model_input);
+        }
+    } else if (pde_type == PDE_enum::euler_potential_flow) {
+        if constexpr (nstate==dim+2) {
+            return std::make_shared < EulerPotentialFlow <dim,nstate,real> > (
+                parameters_input,
+                parameters_input->euler_param.ref_length,
+                parameters_input->euler_param.gamma_gas,
+                parameters_input->euler_param.mach_inf,
+                parameters_input->euler_param.angle_of_attack,
+                parameters_input->euler_param.side_slip_angle,
+                manufactured_solution_function,
+                parameters_input->two_point_num_flux_type);
         }
     } else {
         // prevent warnings for dim=3,nstate=4, etc.
