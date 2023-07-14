@@ -209,6 +209,7 @@ public:
         euler,
         mhd,
         navier_stokes,
+        euler_potential_flow,
         physics_model,
     };
     /// Store the PDE type to be solved

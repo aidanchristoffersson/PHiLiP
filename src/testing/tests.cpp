@@ -86,6 +86,7 @@ std::string TestsBase::get_pde_string(const Parameters::AllParameters *const par
     if (pde_type == PDE_enum::burgers_rewienski)    {pde_string = "burgers_rewienski";}
     if (pde_type == PDE_enum::euler)                {pde_string = "euler";}
     if (pde_type == PDE_enum::navier_stokes)        {pde_string = "navier_stokes";}
+    if (pde_type == PDE_enum::euler_potential_flow) {pde_string = "euler_potential_flow";}
     if (pde_type == PDE_enum::physics_model) {
         pde_string = "physics_model";
         // add the model name + sub model name (if applicable)
