@@ -30,24 +30,38 @@ public:
     /// Physical source term
     std::array<real,nstate> physical_source_term (
         const dealii::Point<dim,real> &pos,
-        const std::array<real,nstate> &/*conservative_solution*/,
-        const std::array<dealii::Tensor<1,dim,real>,nstate> &/*solution_gradient*/,
-        const dealii::types::global_dof_index /*cell_index*/) const override;
+        const std::array<real,nstate> &conservative_solution,
+        const std::array<dealii::Tensor<1,dim,real>,nstate> &solution_gradient,
+        const dealii::types::global_dof_index cell_index) const override;
+
+protected:
+    const std::array<double, 4> NACA_code;
 
 private:
     // checking if node is within object 
     bool within_physical_object (const dealii::Point<dim,real> &pos) const;
 
+    // returns NACA 4 digit code and chord length
+    std::array<real, 4> NACA_parameters() const;
+
     // returns boundaries of airfoil
     std::array<real,(2 * dim)> NACA_series (const dealii::Point<dim,real> &pos) const;
 
-    // returns source term for drag (x)
-    template<typename real2> 
-    real2 drag_calc () const;
+    // returns volume of airfoil
+    real NACA_volume () const;
 
-    // returns source term for lift (y)
+    // returns source term for lift
     template<typename real2> 
-    real2 lift_calc () const;
+    real2 lift_calc (
+            const dealii::Point<dim,real> &pos,
+            const std::array<real,nstate> &conservative_soln) const;
+
+    // returns source term for drag
+    template<typename real2> 
+    real2 drag_calc (
+            const dealii::Point<dim,real> &pos,
+            const std::array<real,nstate> &conservative_soln) const;
+
 
 };
 
