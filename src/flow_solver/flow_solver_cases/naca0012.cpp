@@ -114,7 +114,8 @@ std::shared_ptr<Triangulation> NACA0012<dim,nstate>::generate_grid() const
             const int z_periodic_1 = z_periodic_1_temp; 
             const int z_periodic_2 = z_periodic_2_temp;
 
-            naca0012_mesh = read_gmsh<dim, dim> (mesh_filename, 
+            // meshing in 2D and then converting to 3D
+            naca0012_2d_mesh = read_gmsh<2, 2> (mesh_filename, 
                                                 periodic_x, periodic_y, periodic_z,
                                                 x_periodic_1, x_periodic_2, 
                                                 y_periodic_1, y_periodic_2, 
@@ -123,6 +124,14 @@ std::shared_ptr<Triangulation> NACA0012<dim,nstate>::generate_grid() const
                                                 this->all_param.do_renumber_dofs,
                                                 grid_degree, use_mesh_smoothing, 
                                                 output_high_order_grid);
+
+            // extruding in 3D
+            const unsigned int n_spanwise = 2;
+            const double span_length = 0.5;
+
+            dealii::GridGenerator::extrude_triangulation(&(naca0012_mesh->triangulation), n_spanwise, span_length);
+
+            
         } else {
             naca0012_mesh = read_gmsh<dim, dim> (mesh_filename, this->all_param.do_renumber_dofs, grid_degree, use_mesh_smoothing, 
                                                 mesh_reader_verbose_output, output_high_order_grid);
